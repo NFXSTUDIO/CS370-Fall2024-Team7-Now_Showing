@@ -48,8 +48,8 @@ LAB 22/10/2024 :
 
 - Member present : Everyone except EB --> excused due to family issue
 - Assignement : 4 sequence diagrams:
-                      - get reccomendations
-                      - change preferences
-                      - search media
-                      - update watchlist
+                      - get reccomendations --> AT
+                      - change preferences  (with an update button) --> ? EB ? 
+                      - search media        --> GM
+                      - update watchlist    --> ? EB ? 
 
