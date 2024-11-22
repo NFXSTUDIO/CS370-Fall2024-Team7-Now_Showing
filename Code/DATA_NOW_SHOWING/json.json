@@ -1,0 +1,62 @@
+User handler :
+
+Code : 
+
+["type","function","data"] or "type,function,data"
+
+	 - "type" --> "u" for user | "w" for watchlist
+	 - "function" --> "a" for add | "r" for remove | "u" for update | "d" for read data | "uv" for user verification | "pv" for password verification
+	 - "data" --> depend on the function
+
+Command to send to the handler : 
+
+	create a user :
+
+		- ["u","a","first name","last name","username","password"]
+		- "u,a,first_name,last_name,username,password"
+
+	remove a user :
+
+		- ["u","r","username"]
+		- "u,r,username"
+
+	update a user : 
+
+		- ["u","u","username","new_username","new_password","new_fname","new_lname"]
+		- "u,u,username,new_username,new_password,new_fname,new_lname"
+
+	read user data : 
+
+		- ["u","d","username"]
+		- "u,d,username"
+
+	add media to watchlist : 
+
+		- ["w","a","username","media_id"]
+		- "w,a,username,media_id"
+
+	clear watchlist : 
+
+		- ["w","r","username"]
+		- "w,r,username"
+
+	update watchlist : 
+
+		- ["w","u","username","media_id"]
+		- "w,u,username,media_id"
+
+	read user watchlist : 
+
+		- ["w","d","username"]
+		- "w,d,username"
+
+	verification of user :
+
+		- ["u","uv","username"]
+		- "u,uv,username"
+
+	verification of user password :
+
+		- ["u","uv","username","password"]
+		- "u,uv,username,password"
+
