@@ -116,8 +116,7 @@ public abstract class UIElement {
         //return
         return vals;
     }
-    //returns axis values using MIN method
-    //duplicate of min for testing
+    //returns axis values using CENTER method
     float[] getAxisValuesCenter(float pos, float length, float parentLength){
         float[] vals = new float[2];
         //position
@@ -127,17 +126,17 @@ public abstract class UIElement {
         //return
         return vals;
     }
-    //returns axis values using MIN method
+    //returns axis values using MAX method
     float[] getAxisValuesMax(float pos, float length, float parentLength){
         float[] vals = new float[2];
         //position
-        vals[0] = parentLength + pos;
+        vals[0] = pos - length + parentLength;
         //width
         vals[1] = length;
         //return
         return vals;
     }
-    //returns axis values using MIN method
+    //returns axis values using STRETCH method
     float[] getAxisValuesStretch(float pos, float length, float parentLength){
         float[] vals = new float[2];
         //position
@@ -147,7 +146,7 @@ public abstract class UIElement {
         //return
         return vals;
     }
-    //returns axis values using MIN method
+    //returns axis values using PERCENT_FILL method
     float[] getAxisValuesPercentFill(float pos, float length, float parentLength){
         float[] vals = new float[2];
         //position

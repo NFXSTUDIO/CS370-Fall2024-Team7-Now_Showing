@@ -69,4 +69,8 @@ public class NowShowingFrame {
         return frame.getContentPane().getSize();
     }
 
+    public Scene getScene(){
+        return activeScene;
+    }
+
 }

@@ -5,10 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//log out the user when clicked
-public class LogoutButton extends UIButton {
-    public LogoutButton(float x, float y, float width, float height, PositioningMethod xBehavior, PositioningMethod yBehavior, Color color) {
+public class PageChangeButton extends UIButton{
+    ListLabel listLabel;
+    int change; //amount to change page by
+
+    public PageChangeButton(float x, float y, float width, float height, PositioningMethod xBehavior, PositioningMethod yBehavior, Color color, int change) {
         super(x, y, width, height, xBehavior, yBehavior, color);
+        this.change = change;
+    }
+
+    public void setListLabel(ListLabel listLabel) {
+        this.listLabel = listLabel;
     }
 
     JComponent createComponent() {
@@ -16,7 +23,7 @@ public class LogoutButton extends UIButton {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                ViewController.attemptLogout();
+                listLabel.changePage(change);
             }
         });
         return button;

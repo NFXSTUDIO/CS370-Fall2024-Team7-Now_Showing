@@ -5,10 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//log out the user when clicked
-public class LogoutButton extends UIButton {
-    public LogoutButton(float x, float y, float width, float height, PositioningMethod xBehavior, PositioningMethod yBehavior, Color color) {
+public class SearchButton extends UIButton {
+    UITextInput searchInput = null;
+    public SearchButton(float x, float y, float width, float height, PositioningMethod xBehavior, PositioningMethod yBehavior, Color color) {
         super(x, y, width, height, xBehavior, yBehavior, color);
+    }
+
+    public void setInputObjects(UITextInput searchInput){
+        this.searchInput = searchInput;
     }
 
     JComponent createComponent() {
@@ -16,7 +20,7 @@ public class LogoutButton extends UIButton {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                ViewController.attemptLogout();
+                ViewController.search(searchInput.getText());
             }
         });
         return button;
