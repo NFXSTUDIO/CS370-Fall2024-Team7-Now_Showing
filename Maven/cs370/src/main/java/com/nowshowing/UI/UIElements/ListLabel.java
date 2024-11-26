@@ -1,4 +1,4 @@
-package UIElements;
+package com.nowshowing.UI.UIElements;
 
 import wrappers.Media;
 

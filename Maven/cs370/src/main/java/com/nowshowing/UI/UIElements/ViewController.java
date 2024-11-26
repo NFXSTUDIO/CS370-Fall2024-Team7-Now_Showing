@@ -1,8 +1,8 @@
-package UIElements;
+package com.nowshowing.UI.UIElements;
 
-import wrappers.Media;
-import wrappers.Movie;
-import wrappers.TVShow;
+import com.nowshowing.wrappers.Media;
+import com.nowshowing.wrappers.Movie;
+import com.nowshowing.wrappers.TVShow;
 
 import java.awt.*;
 import java.lang.reflect.Array;
