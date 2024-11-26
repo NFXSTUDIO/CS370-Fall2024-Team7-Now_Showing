@@ -1,11 +1,11 @@
-package UIElements;
+package com.nowshowing.UI.UIElements;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class Scene {
-    ArrayList<UIElement> elements;
+    ArrayList<UIElements.UIElement> elements;
     JPanel panel;
 
     NowShowingFrame frame = null;
