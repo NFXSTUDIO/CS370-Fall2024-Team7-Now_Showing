@@ -24,28 +24,35 @@ public class ServerController {
 
     public Movie recommendationRequest(List<String> input){
         Recommendation rec = new Recommendation(input, mediaHandler);
-        return new Movie();
+        
+        return rec.getRecommendation();
     }
     
-    public void removeFromWL(int id, int userId){
-
+    public void removeFromWL(String message){
+        UserHandler.add_data_to_database(message);
     }
 
-    public void addToWL(int id, int userId){
-
+    public void addToWL(String message){
+        UserHandler.add_data_to_database(message);
     }
-
-    public List<String> getWatchlist(int userId){
-        return new ArrayList<String>();
-    }
-
-    public String loginRequest(String user, String password){
-        return "result here";
-    }
-
+   
     public Movie getDetails(int id){
         return mediaHandler.findById(id);
     }
     
+    public ArrayList<String> getWatchlist(String message){
+        ArrayList<String> export = UserHandler.add_data_to_database(message);
+        return export;
+    }
+
+    public ArrayList<String> loginRequest(String user, String password){
+        ArrayList<String> export = LogIn.log_in(user,password);
+        return export;
+    }
+
+    public ArrayList<String> signupRequest(String firstName,String lastName,String user, String password){
+        ArrayList<String> export = LogIn.sign_up(firstName,lastName,user,password);
+        return export;
+    }
 
 }
