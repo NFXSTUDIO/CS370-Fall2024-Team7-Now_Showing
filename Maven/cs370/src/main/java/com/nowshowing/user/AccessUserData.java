@@ -7,6 +7,8 @@ import org.bson.types.ObjectId;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static java.lang.StringTemplate.STR;
+
 interface AccessUserData {
 
     public static final String MONGO_URI = "mongodb+srv://arthurcourbevoie:90oBVtWbT3weWqea@usernowshowing.8tofy.mongodb.net/?retryWrites=true&w=majority&appName=UserNowShowing";
