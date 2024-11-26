@@ -8,7 +8,7 @@ public class Movie extends Media{
     int runtime;
     String director;
 
-    Movie(){
+    public Movie(){
         
     }
 

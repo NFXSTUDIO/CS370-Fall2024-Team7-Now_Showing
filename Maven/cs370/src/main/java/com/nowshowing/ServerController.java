@@ -1,5 +1,6 @@
 package com.nowshowing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.nowshowing.UI.UIElements.ViewController;
@@ -23,6 +24,7 @@ public class ServerController {
 
     public Movie recommendationRequest(List<String> input){
         Recommendation rec = new Recommendation(input, mediaHandler);
+        return new Movie();
     }
     
     public void removeFromWL(int id, int userId){
@@ -34,11 +36,11 @@ public class ServerController {
     }
 
     public List<String> getWatchlist(int userId){
-
+        return new ArrayList<String>();
     }
 
-    public User loginRequest(String user, String password){
-
+    public String loginRequest(String user, String password){
+        return "result here";
     }
 
     public Movie getDetails(int id){
