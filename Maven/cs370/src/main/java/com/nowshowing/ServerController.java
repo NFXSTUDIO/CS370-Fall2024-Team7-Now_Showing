@@ -11,7 +11,7 @@ public class ServerController {
      MediaHandler mediaHandler;
      ViewController viewController;
      
-     ServerController (ViewController vh){
+     public ServerController (ViewController vh){
         viewController = vh;
         mediaHandler = new MediaHandler();
      }
@@ -22,7 +22,7 @@ public class ServerController {
     }
 
     public Movie recommendationRequest(List<String> input){
-        Recommendation rec = new Recommendation(input);
+        Recommendation rec = new Recommendation(input, mediaHandler);
     }
     
     public void removeFromWL(int id, int userId){

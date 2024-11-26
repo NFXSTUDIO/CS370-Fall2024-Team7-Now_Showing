@@ -2,6 +2,8 @@ package com.nowshowing.UI.UIElements;
 
 import java.awt.*;
 import com.nowshowing.user.*;
+import com.nowshowing.wrappers.Movie;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +92,7 @@ public class ViewController {
         List<String> titles = new ArrayList<String>();
         // TODO: load movie titles into list
 
-        List<String> results = serverController.recommendationRequest(titles);
+        Movie result = serverController.recommendationRequest(titles);
         // TODO: display results
     }
 
@@ -103,7 +105,7 @@ public class ViewController {
     }
 
     public void getSearchResults(String input){
-        List<String> results = serverController.searchRequest(input);
+        List<Movie> results = serverController.searchRequest(input);
         //TODO: display results
     }
 
