@@ -1,10 +1,13 @@
 package com.nowshowing;
 
 import java.util.List;
+
+import com.nowshowing.UI.UIElements.ViewController;
 import com.nowshowing.user.*;
+import com.nowshowing.wrappers.Movie;
 
 public class ServerController {
-    /*
+    
      MediaHandler mediaHandler;
      ViewController viewController;
      
@@ -12,14 +15,14 @@ public class ServerController {
         viewController = vh;
         mediaHandler = new MediaHandler();
      }
-     */
+     
 
-    public List<String> searchRequest(String input){
-
+    public List<Movie> searchRequest(String input){
+        return mediaHandler.findMultipleByTitle(input);
     }
 
-    public List<String> recommendationRequest(List<String> input){
-
+    public Movie recommendationRequest(List<String> input){
+        Recommendation rec = new Recommendation(input);
     }
     
     public void removeFromWL(int id, int userId){
@@ -38,6 +41,9 @@ public class ServerController {
 
     }
 
+    public Movie getDetails(int id){
+        return mediaHandler.findById(id);
+    }
     
 
 }
