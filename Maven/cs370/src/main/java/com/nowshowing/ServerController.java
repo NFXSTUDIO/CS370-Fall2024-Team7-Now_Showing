@@ -22,16 +22,17 @@ public class ServerController {
 
     }
     
-    public void removeFromWL(int id, int userId){
-
+    public void removeFromWL(String message){
+        UserHandler.add_data_to_database(message);
     }
 
-    public void addToWL(int id, int userId){
-
+    public void addToWL(String message){
+        UserHandler.add_data_to_database(message);
     }
 
-    public List<String> getWatchlist(int userId){
-
+    public ArrayList<String> getWatchlist(String message){
+        ArrayList<String> export = UserHandler.add_data_to_database(message);
+        return export;
     }
 
     public ArrayList<String> loginRequest(String user, String password){
