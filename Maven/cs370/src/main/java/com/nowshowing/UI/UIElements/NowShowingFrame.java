@@ -1,4 +1,4 @@
-package com.nowshowing.UI.UIElements;
+package UIElements;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,6 +67,10 @@ public class NowShowingFrame {
 
     public Dimension getSize(){
         return frame.getContentPane().getSize();
+    }
+
+    public Scene getScene(){
+        return activeScene;
     }
 
 }

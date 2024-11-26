@@ -5,10 +5,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-//log out the user when clicked
-public class LogoutButton extends UIButton {
-    public LogoutButton(float x, float y, float width, float height, PositioningMethod xBehavior, PositioningMethod yBehavior, Color color) {
+public class AddToWatchlistButton extends UIButton{
+    ListLabel listLabel;
+
+    public AddToWatchlistButton(float x, float y, float width, float height, PositioningMethod xBehavior, PositioningMethod yBehavior, Color color) {
         super(x, y, width, height, xBehavior, yBehavior, color);
+    }
+
+    public void setListLabel(ListLabel listLabel) {
+        this.listLabel = listLabel;
     }
 
     JComponent createComponent() {
@@ -16,7 +21,8 @@ public class LogoutButton extends UIButton {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                ViewController.attemptLogout();
+                ViewController.attemptAddToWatchlist(ListLabel.getDisplayedMedia().getId());
+                System.out.println("added to watchlist");
             }
         });
         return button;

@@ -1,15 +1,14 @@
-package com.nowshowing.UI.UIElements;
+package UIElements;
+
+import wrappers.Media;
+import wrappers.Movie;
+import wrappers.TVShow;
 
 import java.awt.*;
-import com.nowshowing.user.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-
-import com.nowshowing.ServerController;
 
 public class ViewController {
-    static ServerController serverController;
-    static User currentUser;
     //the frame used to display everything. there will only ever be one
     static NowShowingFrame frame;
     //the various scenes of the program
@@ -30,6 +29,9 @@ public class ViewController {
     public static final int RECOMMENDATIONS_SCENE = 5;
     public static final int MEDIA_INFO_SCENE = 6;
 
+    //scene to be returned to after leaving media info
+    public static Scene returnScene = null;
+
     //shorthand to make later code more readable when setting positioning methods
     final UIElement.PositioningMethod MIN = UIElement.PositioningMethod.MIN;
     final UIElement.PositioningMethod CENTER = UIElement.PositioningMethod.CENTER;
@@ -39,8 +41,6 @@ public class ViewController {
 
     public ViewController(){
         createScenes();
-        serverController = new ServerController(this);
-        // Possibly: use default User constructor that can identify itself as not logged in (ie id = -1)
     }
 
     public static void loadScene(int sceneID){
@@ -51,17 +51,29 @@ public class ViewController {
         scenes[sceneID].refresh();
     }
 
+    //returns true if successful, false if unsuccessful
+    public static boolean returnToPreviousScene(){
+        if(returnScene == null)
+            return false;
+        frame.setScene(returnScene);
+        returnScene.refresh();
+        //once set, we can set the return scene to null to reset it
+        returnScene = null;
+        return true;
+    }
+
+    public static void refreshActiveScene(){
+        frame.getScene().refresh();
+    }
+
     static void verifyFrame(){
         //create frame if it doesn't exist yet
         if(frame == null)
-            frame = new NowShowingFrame(1920/2,1080/2);
+            frame = new NowShowingFrame(1920*2/3,1080*2/3);
     }
 
     public static void attemptLogIn(String username, String password){
         //insert method call to the services controller
-        //TODO: implement way to check for success
-        currentUser = serverController.loginRequest(username, password);
-        
 
         //temporary function for debugging purposes:
         displayLogInResult(true);
@@ -70,8 +82,51 @@ public class ViewController {
     public static void attemptLogout(){
         //insert method call to the services controller
 
-        //temporary function for debugging purposes:
+        //temporary line for debugging purposes:
         displayLogOutResult();
+    }
+
+    public static void attemptAddToWatchlist(int mediaID){
+        //inset method call to the services controller
+    }
+
+    //note to gavin: this needs to actually be called somewhere still
+    public void attemptGetRecommendation(){
+        //inset method call to the services controller
+    }
+
+    public static void attemptViewMediaInfo(int mediaID){
+        //inset method call to the services controller
+
+        //temporary line for debugging purposes:
+
+        Movie m = new Movie();
+        m.setTitle("media 0 (movie)");
+        m.setId(0);
+        m.setDirector("director");
+        m.setRuntime(120);
+        m.setCast(new ArrayList<String>());
+        m.setOverview("this isn't displayed as of now");
+        displayMediaInfo(m);
+    }
+
+    public static void search(String query) {
+        //insert method call to the services controller
+
+        System.out.println("search sent: " + query);
+
+        //temporary code for debugging purposes
+        ArrayList<Media> arr = new ArrayList<Media>();
+        arr.add(new Movie());
+        arr.add(new TVShow());
+        arr.add(new Movie());
+        ((Movie)arr.get(0)).setTitle("media 0 (movie)");
+        ((TVShow)arr.get(1)).setName("media 1 (tv show)");
+        ((Movie)arr.get(2)).setTitle("media 2 (movie)");
+        arr.get(0).setId(0);
+        arr.get(1).setId(1);
+        arr.get(2).setId(2);
+        displaySearchResults(arr);
     }
 
     public static void displayLogInResult(boolean success){
@@ -82,32 +137,29 @@ public class ViewController {
         }
     }
 
+    public static void displayRegisterResult(boolean success){
+        if(success){
+            loadScene(MAIN_MENU_SCENE);
+        }
+        else{
+            //clear register page to try again; not yet implemented
+        }
+    }
+
+    public static void displaySearchResults(ArrayList<Media> searchResults){
+        ListLabel.setSearchResults(searchResults);
+    }
+
+    public static void displayMediaInfo(Media media){
+        returnScene = frame.getScene();
+        MediaInfoText.setDisplayedMedia(media);
+        loadScene(MEDIA_INFO_SCENE);
+
+    }
+
     public static void displayLogOutResult(){
         loadScene(LANDING_SCENE);
     }
-
-    public void getRecommendation(){
-        List<String> titles = new ArrayList<String>();
-        // TODO: load movie titles into list
-
-        List<String> results = serverController.recommendationRequest(titles);
-        // TODO: display results
-    }
-
-    public void removeFromWatchlist(String title){
-        serverController.removeFromWL(title, currentUser.getid()); // Replace with any way to identify user
-    }
-
-    public void addToWatchlist(String title){
-        serverController.addToWL(title, currentUser.getId()); // Replace with any way to identify user
-    }
-
-    public void getSearchResults(String input){
-        List<String> results = serverController.searchRequest(input);
-        //TODO: display results
-    }
-
-
 
     //this method creates each scene
     void createScenes(){
@@ -119,7 +171,7 @@ public class ViewController {
         UIElement landingHeaderText = new UIText("Welcome", new Color(0xffffff));
         landingHeader.addElement(landingHeaderText);
         //log in button
-        UIElement logInButton = new LoginButton(0,0,200,100, CENTER, CENTER, new Color(0x811A0A));
+        UIElement logInButton = new SceneSwitchButton(0,0,200,100, CENTER, CENTER, new Color(0x811A0A),LOGIN_SCENE);
         landingScene.addElement(logInButton);
         UIElement logInButtonText = new UIText("Log In", new Color(0xffffff));
         logInButton.addElement(logInButtonText);
@@ -146,7 +198,7 @@ public class ViewController {
         UITextInput passwordInputText = new UITextInput();
         passwordInputBackdrop.addElement(passwordInputText);
         //log in button
-        ConfirmLoginButton finishLogInButton = new ConfirmLoginButton(0,150,200,100, CENTER, CENTER, new Color(0x811A0A));
+        LoginButton finishLogInButton = new LoginButton(0,150,200,100, CENTER, CENTER, new Color(0x811A0A));
         finishLogInButton.setInputObjects(usernameInputText, passwordInputText);
         loginScene.addElement(finishLogInButton);
         UIElement finishLogInButtonText = new UIText("Log In", new Color(0xffffff));
@@ -159,24 +211,27 @@ public class ViewController {
         mainMenuScene.addElement(mainMenuHeader);
         UIElement mainMenuHeaderText = new UIText("Main Menu", new Color(0xffffff));
         mainMenuHeader.addElement(mainMenuHeaderText);
+        //backdrop for options
+        UIElement mainMenuBackdrop = new UILabel(10, 110, 10, 10, STRETCH, STRETCH, new Color(0xdadada));
+        mainMenuScene.addElement(mainMenuBackdrop);
         //search media button
-        UIElement searchMediaButton = new UIButton(-125,-50,200,150, CENTER, CENTER, new Color(0x811A0A));
-        mainMenuScene.addElement(searchMediaButton);
+        UIElement searchMediaButton = new SceneSwitchButton(0.05f,0.05f,0.525f,0.525f, PERCENT, PERCENT, new Color(0x811A0A),SEARCH_SCENE);
+        mainMenuBackdrop.addElement(searchMediaButton);
         UIElement searchMediaButtonText = new UIText("Search Media", new Color(0xffffff));
         searchMediaButton.addElement(searchMediaButtonText);
         //view watchlist button
-        UIElement viewWatchlistButton = new UIButton(125,-50,200,150, CENTER, CENTER, new Color(0x811A0A));
-        mainMenuScene.addElement(viewWatchlistButton);
+        UIElement viewWatchlistButton = new SceneSwitchButton(0.525f,0.05f,0.05f,0.525f, PERCENT, PERCENT, new Color(0x811A0A), WATCHLIST_SCENE);
+        mainMenuBackdrop.addElement(viewWatchlistButton);
         UIElement viewWatchlistButtonText = new UIText("View Watchlist", new Color(0xffffff));
         viewWatchlistButton.addElement(viewWatchlistButtonText);
         //get recommendations button
-        UIElement recommendationsButton = new UIButton(-125,150,200,150, CENTER, CENTER, new Color(0x811A0A));
-        mainMenuScene.addElement(recommendationsButton);
+        UIElement recommendationsButton = new SceneSwitchButton(0.05f,0.525f,0.525f,0.05f, PERCENT, PERCENT, new Color(0x811A0A), RECOMMENDATIONS_SCENE);
+        mainMenuBackdrop.addElement(recommendationsButton);
         UIElement recommendationsButtonText = new UIText("Get Recommendation", new Color(0xffffff));
         recommendationsButton.addElement(recommendationsButtonText);
         //log out button
-        UIElement logoutButton = new LogoutButton(125,150,200,150, CENTER, CENTER, new Color(0x811A0A));
-        mainMenuScene.addElement(logoutButton);
+        UIElement logoutButton = new LogoutButton(0.525f,0.525f,0.05f, 0.05f, PERCENT, PERCENT, new Color(0x811A0A));
+        mainMenuBackdrop.addElement(logoutButton);
         UIElement logoutButtonText = new UIText("Log out", new Color(0xffffff));
         logoutButton.addElement(logoutButtonText);
 
@@ -192,13 +247,48 @@ public class ViewController {
         searchScene.addElement(searchAskText);
         UIElement searchInputBackdrop = new UILabel(20,150,200,50, STRETCH, MIN, new Color(0xffffff));
         searchScene.addElement(searchInputBackdrop);
-        UIElement searchInputText = new UITextInput();
+        UITextInput searchInputText = new UITextInput();
         searchInputBackdrop.addElement(searchInputText);
         //search button
-        UIElement searchButton = new UIButton(-175,125,150,75, MAX, MIN, new Color(0x811A0A));
+        SearchButton searchButton = new SearchButton(-25,125,150,75, MAX, MIN, new Color(0x811A0A));
+        searchButton.setInputObjects(searchInputText);
         searchScene.addElement(searchButton);
         UIElement searchButtonText = new UIText("Search", new Color(0xffffff));
         searchButton.addElement(searchButtonText);
+        //search result
+        ListLabel searchResult = new ListLabel(0.1f, 250, 0.1f, 100, PERCENT, STRETCH);
+        searchScene.addElement(searchResult);
+        UIText searchMediaTitle = new UIText(10,10,10,50, STRETCH, MIN, new Color(0xffffff), "Media Title");
+        searchResult.addElement(searchMediaTitle);
+        searchResult.setDependantObjects(searchMediaTitle);
+            //add to watchlist button
+        AddToWatchlistButton addToWatchlistFromSearchButton = new AddToWatchlistButton(0.05f, 75, 0.525f, 30, PERCENT, STRETCH, new Color(0x811A0A));
+        addToWatchlistFromSearchButton.setListLabel(searchResult);
+        searchResult.addElement(addToWatchlistFromSearchButton);
+        UIText addToWatchlistFromSearchText = new UIText("Add to Watchlist", new Color(0xffffff));
+        addToWatchlistFromSearchButton.addElement(addToWatchlistFromSearchText);
+            //view media info button
+        UIButton viewMediaInfoFromSearchButton = new ViewMediaInfoButton(0.525f, 75, 0.05f, 30, PERCENT, STRETCH, new Color(0x811A0A));
+        searchResult.addElement(viewMediaInfoFromSearchButton);
+        UIText viewMediaInfoFromSearchText = new UIText("View Media Info", new Color(0xffffff));
+        viewMediaInfoFromSearchButton.addElement(viewMediaInfoFromSearchText);
+        //previous page button
+        PageChangeButton previousSearchButton = new PageChangeButton(-180, -10, 350, 75, CENTER, MAX, new Color(0x811A0A),-1);
+        previousSearchButton.setListLabel(searchResult);
+        searchScene.addElement(previousSearchButton);
+        UIElement previousSearchButtonText = new UIText("Previous Result", new Color(0xffffff));
+        previousSearchButton.addElement(previousSearchButtonText);
+        //next page button
+        PageChangeButton nextSearchButton = new PageChangeButton(180, -10, 350, 75, CENTER, MAX, new Color(0x811A0A),1);
+        nextSearchButton.setListLabel(searchResult);
+        searchScene.addElement(nextSearchButton);
+        UIElement nextSearchButtonText = new UIText("Next Result", new Color(0xffffff));
+        nextSearchButton.addElement(nextSearchButtonText);
+        //exit button
+        UIElement exitSearchButton = new SceneSwitchButton(10, -10, 100, 50, MIN, MAX, new Color(0x811A0A), MAIN_MENU_SCENE);
+        searchScene.addElement(exitSearchButton);
+        UIElement exitSearchButtonText = new UIText("Exit", new Color(0xffffff));
+        exitSearchButton.addElement(exitSearchButtonText);
 
         //watchlist scene (save for later)
         watchlistScene = new Scene();
@@ -207,6 +297,11 @@ public class ViewController {
         watchlistScene.addElement(watchlistHeader);
         UIElement watchlistHeaderText = new UIText("Your Watchlist", new Color(0xffffff));
         watchlistHeader.addElement(watchlistHeaderText);
+        //exit button
+        UIElement exitWatchlistButton = new SceneSwitchButton(10, -10, 100, 50, MIN, MAX, new Color(0x811A0A), MAIN_MENU_SCENE);
+        watchlistScene.addElement(exitWatchlistButton);
+        UIElement exitWatchlistButtonText = new UIText("Exit", new Color(0xffffff));
+        exitWatchlistButton.addElement(exitWatchlistButtonText);
 
         //recommendations scene (save for later)
         recommendationsScene = new Scene();
@@ -215,6 +310,11 @@ public class ViewController {
         recommendationsScene.addElement(recommendationsHeader);
         UIElement recommendationsHeaderText = new UIText("Recommendations", new Color(0xffffff));
         recommendationsHeader.addElement(recommendationsHeaderText);
+        //exit button
+        UIElement exitRecommendationsButton = new SceneSwitchButton(10, -10, 100, 50, MIN, MAX, new Color(0x811A0A), MAIN_MENU_SCENE);
+        recommendationsScene.addElement(exitRecommendationsButton);
+        UIElement exitRecommendationsButtonText = new UIText("Exit", new Color(0xffffff));
+        exitRecommendationsButton.addElement(exitRecommendationsButtonText);
 
         //media info scene
         mediaInfoScene = new Scene();
@@ -223,6 +323,14 @@ public class ViewController {
         mediaInfoScene.addElement(mediaInfoHeader);
         UIElement mediaInfoHeaderText = new UIText("Media Details", new Color(0xffffff));
         mediaInfoHeader.addElement(mediaInfoHeaderText);
+        //info text
+        MediaInfoText mediaInfoText = new MediaInfoText(200, 100, 100, 100, STRETCH, STRETCH, new Color(0x000000));
+        mediaInfoScene.addElement(mediaInfoText);
+        //exit button
+        UIElement exitInfoButton = new SceneSwitchButton(10, -10, 100, 50, MIN, MAX, new Color(0x811A0A), MAIN_MENU_SCENE);
+        mediaInfoScene.addElement(exitInfoButton);
+        UIElement exitInfoButtonText = new UIText("Exit", new Color(0xffffff));
+        exitInfoButton.addElement(exitInfoButtonText);
 
         //add to scenes array
         scenes = new Scene[7];

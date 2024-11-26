@@ -1,4 +1,4 @@
-package com.nowshowing.UI.UIElements;
+package UIElements;
 
 import javax.swing.*;
 import java.awt.*;
