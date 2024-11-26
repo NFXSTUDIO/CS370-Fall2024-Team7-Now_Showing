@@ -1,5 +1,6 @@
 package com.nowshowing;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.nowshowing.user.*;
 
@@ -15,11 +16,11 @@ public class ServerController {
      */
 
     public List<String> searchRequest(String input){
-
+        return new ArrayList<>();
     }
 
     public List<String> recommendationRequest(List<String> input){
-
+        return new ArrayList<>();
     }
     
     public void removeFromWL(String message){
