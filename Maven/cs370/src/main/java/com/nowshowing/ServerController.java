@@ -7,6 +7,8 @@ import com.nowshowing.UI.UIElements.ViewController;
 import com.nowshowing.user.*;
 import com.nowshowing.wrappers.Movie;
 
+
+
 public class ServerController {
     
      MediaHandler mediaHandler;
