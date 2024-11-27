@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Scene {
-    ArrayList<UIElement> elements;
+    ArrayList<UIElements.UIElement> elements;
     JPanel panel;
 
     NowShowingFrame frame = null;

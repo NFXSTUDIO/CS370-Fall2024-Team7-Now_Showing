@@ -1,5 +1,6 @@
 package com.nowshowing;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.nowshowing.user.*;
 
@@ -15,23 +16,23 @@ public class ServerController {
      */
 
     public List<String> searchRequest(String input){
-
+        return new ArrayList<>();
     }
 
     public List<String> recommendationRequest(List<String> input){
-
+        return new ArrayList<>();
     }
     
-    public void removeFromWL(String message){
-        UserHandler.add_data_to_database(message);
+    public void removeFromWL(String username, String mediaID){
+        UserHandler.add_data_to_database(STR."w,u,\{username},\{mediaID}");
     }
 
     public void addToWL(String message){
         UserHandler.add_data_to_database(message);
     }
 
-    public ArrayList<String> getWatchlist(String message){
-        ArrayList<String> export = UserHandler.add_data_to_database(message);
+    public ArrayList<String> getWatchlist(String username){
+        ArrayList<String> export = UserHandler.add_data_to_database(STR."w,u,\{username}");
         return export;
     }
 
