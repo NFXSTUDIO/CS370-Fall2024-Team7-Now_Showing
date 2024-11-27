@@ -82,7 +82,7 @@ public class ViewController {
     public static void attemptLogIn(String username, String password){
         //insert method call to the services controller
         //TODO: implement way to check for success
-        currentUser = serverController.loginRequest(username, password);
+        ArrayList<String> result = serverController.loginRequest(username, password);
         
 
         //temporary function for debugging purposes:
@@ -152,11 +152,11 @@ public class ViewController {
     }
 
     public void removeFromWatchlist(String title){
-        serverController.removeFromWL(title, currentUser.getid()); // Replace with any way to identify user
+        //serverController.removeFromWL(title, currentUser.getid()); // Replace with any way to identify user
     }
 
     public void addToWatchlist(int id){
-        serverController.addToWL(id, currentUser.getId()); // Replace with any way to identify user
+        //serverController.addToWL(id, currentUser.getId()); // Replace with any way to identify user
     }
 
     public void getSearchResults(String input){

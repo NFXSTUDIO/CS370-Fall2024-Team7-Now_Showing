@@ -1,3 +1,5 @@
+package com.nowshowing;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
