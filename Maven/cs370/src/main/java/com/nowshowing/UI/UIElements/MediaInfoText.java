@@ -1,7 +1,7 @@
 package com.nowshowing.UI.UIElements;
 
-import wrappers.Media;
-import wrappers.Movie;
+import com.nowshowing.wrappers.Media;
+import com.nowshowing.wrappers.Movie;
 
 import javax.swing.*;
 import java.awt.*;

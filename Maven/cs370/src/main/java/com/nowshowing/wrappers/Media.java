@@ -9,6 +9,8 @@ public abstract class Media {
     String poster_path;
     List<String> cast;
 
+    public abstract String getTitle();
+
     public int[] getGenre_ids() {
         return genre_ids;
     }
