@@ -2,7 +2,7 @@ package com.nowshowing.wrappers;
 
 import java.util.List;
 
-public class Media {
+public abstract class Media {
     int[] genre_ids;
     int id;
     String overview;

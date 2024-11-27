@@ -1,5 +1,6 @@
 package com.nowshowing.UI.UIElements;
 
+import com.nowshowing.wrappers.Media;
 
 import javax.swing.*;
 

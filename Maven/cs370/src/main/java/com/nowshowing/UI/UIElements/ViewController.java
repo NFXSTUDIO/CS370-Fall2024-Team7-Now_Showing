@@ -1,10 +1,11 @@
 package com.nowshowing.UI.UIElements;
 
-import java.awt.*;
-import com.nowshowing.user.*;
 import com.nowshowing.wrappers.Media;
 import com.nowshowing.wrappers.Movie;
 import com.nowshowing.wrappers.TVShow;
+
+import java.awt.*;
+import com.nowshowing.user.*;
 
 import java.util.ArrayList;
 import java.util.List;

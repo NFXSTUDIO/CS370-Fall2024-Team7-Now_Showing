@@ -8,6 +8,10 @@ public class TVShow extends Media{
     int number_of_episodes;
     int number_of_seasons;
     String status;
+
+    public TVShow(){
+
+    }
     
     public String getCreator() {
         return creator;

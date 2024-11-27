@@ -28,8 +28,8 @@ public class ServerController {
         return rec.getRecommendation();
     }
     
-    public void removeFromWL(String message){
-        UserHandler.add_data_to_database(message);
+    public void removeFromWL(String username, String mediaID){
+        UserHandler.add_data_to_database(STR."w,u,\{username},\{mediaID}");
     }
 
     public void addToWL(String message){
