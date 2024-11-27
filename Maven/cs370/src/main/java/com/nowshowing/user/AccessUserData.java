@@ -1,6 +1,10 @@
 package com.nowshowing.user;
 
-import com.mongodb.client.*;
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoClients;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -27,7 +31,7 @@ interface AccessUserData {
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
         ArrayList<String> watchlist = new ArrayList<>();                                    // create a new watchlist (list of string) for the user
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {                    // try to connect to the database (create a client of the database with the URL)
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {                    // try to connect to the database (create a client of the database with the URL)
             MongoDatabase database = mongoClient.getDatabase("User");                    // Name of the database
             MongoCollection<Document> collection = database.getCollection("UserData");   // Name of the collection where the database is stored
             Document doc = new Document("first name",fname)                                 // Create a new row
@@ -52,7 +56,7 @@ interface AccessUserData {
         // If we can't have access to the database, the program send an error message and if he can access and add the user, it put in the console a confirmation.
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {                    // try to connect to the database (create a client of the database with the URL)
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {                    // try to connect to the database (create a client of the database with the URL)
             MongoDatabase database = mongoClient.getDatabase("User");                    // Name of the database
             MongoCollection<Document> collection = database.getCollection("UserData");   // Name of the collection where the database is stored
             FindIterable<Document> Documents = collection.find();                           // Extract all the row of the database
@@ -88,7 +92,7 @@ Password: \{password}
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
         ObjectId id = null;                                                                 // Create an ObjectId that will contain the row ID of the user
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {                    // try to connect to the database (create a client of the database with the URL)
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {                    // try to connect to the database (create a client of the database with the URL)
             MongoDatabase database = mongoClient.getDatabase("User");                    // Name of the database
             MongoCollection<Document> collection = database.getCollection("UserData");   // Name of the collection where the database is stored
             Document query = new Document("username", username);                            // Looking for the row which contains the username in the database
@@ -117,7 +121,7 @@ Password: \{password}
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
         ArrayList<String> data = new ArrayList<String>();                                                              // Create an array of string
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {                    // try to connect to the database (create a client of the database with the URL)
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {                    // try to connect to the database (create a client of the database with the URL)
             MongoDatabase database = mongoClient.getDatabase("User");                    // Name of the database
             MongoCollection<Document> collection = database.getCollection("UserData");   // Name of the collection where the database is stored
             Document query = new Document("username", username);                            // Looking for the row which contains the username in the database
@@ -149,7 +153,7 @@ Password: \{password}
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
         ArrayList<String> data = new ArrayList<>();
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase("User");
             MongoCollection<Document> collection = database.getCollection("UserData");
             FindIterable<Document> Documents = collection.find();
@@ -176,7 +180,7 @@ Password: \{password}
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
         String password = "";
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase("User");
             MongoCollection<Document> collection = database.getCollection("UserData");
             Document query = new Document("username", username);
@@ -201,7 +205,7 @@ Password: \{password}
         // If we can't have access to the database, the program send an error message and if he can access, he deletes the user from the database
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase("User");
             MongoCollection<Document> collection = database.getCollection("UserData");
             Document query = new Document("username", username);
@@ -235,7 +239,7 @@ Password: \{password}
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
         ObjectId id = getUserId(username);
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase("User");
             MongoCollection<Document> collection = database.getCollection("UserData");
             Document query = new Document("username", username);
@@ -277,7 +281,7 @@ Password: \{password}
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
         ArrayList<String> exported_data = new ArrayList<>();
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase("User");
             MongoCollection<Document> collection = database.getCollection("UserData");
             Document query = new Document("username", username);
@@ -306,7 +310,7 @@ Password: \{password}
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
         ObjectId id = getUserId(username);
-        try (MongoClient mongoClient = MongoClients.create(MONGO_URI)) {
+        try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase("User");
             MongoCollection<Document> collection = database.getCollection("UserData");
             Document query = new Document("username", username);
