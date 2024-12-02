@@ -99,7 +99,7 @@ public class ViewController {
 
     public static void attemptRegister(String username, String password){
         //TODO: insert method call to the services controller
-
+        serverController.signupRequest(username, password);
         //temporary code for debugging purposes:
         displayLogInResult(true);
     }
@@ -155,35 +155,23 @@ public class ViewController {
 
     public static void attemptViewMediaInfo(int mediaID){
         //TODO: inset method call to the services controller
+        Movie m = serverController.getDetails(mediaID);
 
         //temporary lines for debugging purposes:
-        Movie m = new Movie();
+        /*Movie m = new Movie();
         m.setTitle("media 0 (movie)");
         m.setId(0);
         m.setDirector("director");
         m.setRuntime(120);
         m.setCast(new ArrayList<String>());
-        m.setOverview("this isn't displayed as of now");
+        m.setOverview("this isn't displayed as of now");*/
         displayMediaInfo(m);
     }
 
-    public static void search(String query) {
-        //TODO: insert method call to the services controller
-
-        System.out.println("search sent: " + query);
-
-        //temporary code for debugging purposes
-        ArrayList<Media> arr = new ArrayList<Media>();
-        arr.add(new Movie());
-        arr.add(new TVShow());
-        arr.add(new Movie());
-        ((Movie)arr.get(0)).setTitle("media 0 (movie)");
-        ((TVShow)arr.get(1)).setName("media 1 (tv show)");
-        ((Movie)arr.get(2)).setTitle("media 2 (movie)");
-        arr.get(0).setId(0);
-        arr.get(1).setId(1);
-        arr.get(2).setId(2);
-        displaySearchResults(arr);
+    public static void search(String input) {
+        List<Movie> results = serverController.searchRequest(input);
+        ArrayList<Media> convertedResults = new ArrayList<>(results);
+        displaySearchResults(convertedResults);
     }
 
     //TODO: this is unused, maybe remove before submitting so code looks cleaner?
@@ -193,12 +181,6 @@ public class ViewController {
 
     public static void addToWatchlist(int id){
         //serverController.addToWL(id, currentUser.getId()); // Replace with any way to identify user
-    }
-
-    public void getSearchResults(String input){
-        List<Movie> results = serverController.searchRequest(input);
-        ArrayList<Media> convertedResults = new ArrayList<>(results);
-        displaySearchResults(convertedResults);
     }
 
     //this method creates each scene

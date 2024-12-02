@@ -34,16 +34,16 @@ public class ServerController {
         UserHandler.add_data_to_database(STR."w,u,\{username},\{mediaID}");
     }
 
-    public void addToWL(String message){
-        UserHandler.add_data_to_database(message);
+    public void addToWL(String mediaID){
+        UserHandler.add_data_to_database(STR."w,a,username,\{mediaID}");
     }
    
     public Movie getDetails(int id){
         return mediaHandler.findById(id);
     }
     
-    public ArrayList<String> getWatchlist(String message){
-        ArrayList<String> export = UserHandler.add_data_to_database(message);
+    public ArrayList<String> getWatchlist(String username){
+        ArrayList<String> export = UserHandler.add_data_to_database(STR."w,d,\{username}");
         return export;
     }
 
@@ -52,9 +52,10 @@ public class ServerController {
         return export;
     }
 
-    public ArrayList<String> signupRequest(String firstName,String lastName,String user, String password){
-        ArrayList<String> export = LogIn.sign_up(firstName,lastName,user,password);
-        return export;
+    public ArrayList<String> signupRequest(String user, String password){
+         String fname = "test";
+         String lname = "test";
+         ArrayList<String> export = LogIn.sign_up(fname,lname,user,password);
+         return export;
     }
-
 }
