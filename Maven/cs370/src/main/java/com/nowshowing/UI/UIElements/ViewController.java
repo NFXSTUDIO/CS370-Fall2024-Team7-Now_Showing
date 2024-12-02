@@ -26,6 +26,7 @@ public class ViewController {
     static Scene watchlistScene;
     static Scene recommendationsScene;
     static Scene mediaInfoScene;
+    static Scene registerScene;
     //constants to refer to each scene
     public static final int LANDING_SCENE = 0;
     public static final int LOGIN_SCENE = 1;
@@ -34,6 +35,7 @@ public class ViewController {
     public static final int WATCHLIST_SCENE = 4;
     public static final int RECOMMENDATIONS_SCENE = 5;
     public static final int MEDIA_INFO_SCENE = 6;
+    public static final int REGISTER_SCENE = 7;
 
     //scene to be returned to after leaving media info
     public static Scene returnScene = null;
@@ -90,10 +92,29 @@ public class ViewController {
         displayLogInResult(true);
     }
 
-    public static void attemptLogout(){
-        //insert method call to the services controller
+    public static void attemptRegister(String username, String password){
+        //TODO: insert method call to the services controller
 
-        //temporary function for debugging purposes:
+        //temporary code for debugging purposes:
+        displayLogInResult(true);
+    }
+
+    public static void requestRecommendation(){
+        //TODO: insert method call to the services controller
+
+        //temporary code for debugging purposes:
+        Movie m = new Movie();
+        m.setTitle("media 100 (movie)");
+        m.setId(100);
+        m.setDirector("director");
+        m.setRuntime(1000);
+        displayMediaInfo(m);
+    }
+
+    public static void attemptLogout(){
+        //TODO: insert method call to the services controller
+
+        //temporary code for debugging purposes:
         displayLogOutResult();
     }
 
@@ -101,7 +122,7 @@ public class ViewController {
         if(success)
             loadScene(MAIN_MENU_SCENE);
         else{
-            //load the register account scene; not yet implemented
+            loadScene(REGISTER_SCENE);
         }
     }
 
@@ -114,7 +135,7 @@ public class ViewController {
             loadScene(MAIN_MENU_SCENE);
         }
         else{
-            //clear register page to try again; not yet implemented
+            loadScene(REGISTER_SCENE);
         }
     }
 
@@ -138,10 +159,9 @@ public class ViewController {
     }
 
     public static void attemptViewMediaInfo(int mediaID){
-        //inset method call to the services controller
+        //TODO: inset method call to the services controller
 
-        //temporary line for debugging purposes:
-
+        //temporary lines for debugging purposes:
         Movie m = new Movie();
         m.setTitle("media 0 (movie)");
         m.setId(0);
@@ -152,21 +172,8 @@ public class ViewController {
         displayMediaInfo(m);
     }
 
-    public void removeFromWatchlist(String title){
-        //serverController.removeFromWL(title, currentUser.getid()); // Replace with any way to identify user
-    }
-
-    public void addToWatchlist(int id){
-        //serverController.addToWL(id, currentUser.getId()); // Replace with any way to identify user
-    }
-
-    public void getSearchResults(String input){
-        List<Movie> results = serverController.searchRequest(input);
-        //TODO: display results
-    }
-
     public static void search(String query) {
-        //insert method call to the services controller
+        //TODO: insert method call to the services controller
 
         System.out.println("search sent: " + query);
 
@@ -184,6 +191,20 @@ public class ViewController {
         displaySearchResults(arr);
     }
 
+    //TODO: this is unused, maybe remove before submitting so code looks cleaner?
+    public void removeFromWatchlist(String title){
+        //serverController.removeFromWL(title, currentUser.getid()); // Replace with any way to identify user
+    }
+
+    public static void addToWatchlist(int id){
+        //serverController.addToWL(id, currentUser.getId()); // Replace with any way to identify user
+    }
+
+    public void getSearchResults(String input){
+        List<Movie> results = serverController.searchRequest(input);
+        ArrayList<Media> convertedResults = new ArrayList<>(results);
+        displaySearchResults(convertedResults);
+    }
 
     //this method creates each scene
     void createScenes(){
@@ -195,10 +216,15 @@ public class ViewController {
         UIElement landingHeaderText = new UIText("Welcome", new Color(0xffffff));
         landingHeader.addElement(landingHeaderText);
         //log in button
-        UIElement logInButton = new SceneSwitchButton(0,0,200,100, CENTER, CENTER, new Color(0x811A0A),LOGIN_SCENE);
+        UIElement logInButton = new SceneSwitchButton(-110,0,200,100, CENTER, CENTER, new Color(0x811A0A),LOGIN_SCENE);
         landingScene.addElement(logInButton);
         UIElement logInButtonText = new UIText("Log In", new Color(0xffffff));
         logInButton.addElement(logInButtonText);
+        //register button
+        UIElement registerButton = new SceneSwitchButton(110,0,200,100, CENTER, CENTER, new Color(0x811A0A),REGISTER_SCENE);
+        landingScene.addElement(registerButton);
+        UIElement registerButtonText = new UIText("Register", new Color(0xffffff));
+        registerButton.addElement(registerButtonText);
 
         //log in scene
         loginScene = new Scene();
@@ -249,7 +275,7 @@ public class ViewController {
         UIElement viewWatchlistButtonText = new UIText("View Watchlist", new Color(0xffffff));
         viewWatchlistButton.addElement(viewWatchlistButtonText);
         //get recommendations button
-        UIElement recommendationsButton = new SceneSwitchButton(0.05f,0.525f,0.525f,0.05f, PERCENT, PERCENT, new Color(0x811A0A), RECOMMENDATIONS_SCENE);
+        UIElement recommendationsButton = new GetRecommendationButton(0.05f,0.525f,0.525f,0.05f, PERCENT, PERCENT, new Color(0x811A0A));
         mainMenuBackdrop.addElement(recommendationsButton);
         UIElement recommendationsButtonText = new UIText("Get Recommendation", new Color(0xffffff));
         recommendationsButton.addElement(recommendationsButtonText);
@@ -356,8 +382,36 @@ public class ViewController {
         UIElement exitInfoButtonText = new UIText("Exit", new Color(0xffffff));
         exitInfoButton.addElement(exitInfoButtonText);
 
+        //register scene
+        registerScene = new Scene();
+        //header
+        UIElement registerHeader = new UILabel(0,0,0,100, STRETCH, MIN);
+        registerScene.addElement(registerHeader);
+        UIElement registerHeaderText = new UIText("Create Account", new Color(0xffffff));
+        registerHeader.addElement(registerHeaderText);
+        //username field
+        UIElement registerUsernameAskText = new UIText(100,-100,100,50, STRETCH, CENTER, new Color(0x000000), "Username:");
+        registerScene.addElement(registerUsernameAskText);
+        UIElement registerUsernameInputBackdrop = new UILabel(100,-50,100,50, STRETCH, CENTER, new Color(0xffffff));
+        registerScene.addElement(registerUsernameInputBackdrop);
+        UITextInput registerUsernameInputText = new UITextInput();
+        registerUsernameInputBackdrop.addElement(registerUsernameInputText);
+        //password field
+        UIElement registerPasswordAskText = new UIText(100,0,100,50, STRETCH, CENTER, new Color(0x000000), "Password:");
+        registerScene.addElement(registerPasswordAskText);
+        UIElement registerPasswordInputBackdrop = new UILabel(100,50,100,50, STRETCH, CENTER, new Color(0xffffff));
+        registerScene.addElement(registerPasswordInputBackdrop);
+        UITextInput registerPasswordInputText = new UITextInput();
+        registerPasswordInputBackdrop.addElement(registerPasswordInputText);
+        //register button
+        RegisterButton finishRegisterButton = new RegisterButton(0,150,200,100, CENTER, CENTER, new Color(0x811A0A));
+        finishRegisterButton.setInputObjects(registerUsernameInputText, registerPasswordInputText);
+        registerScene.addElement(finishRegisterButton);
+        UIElement finishRegisterButtonText = new UIText("Register", new Color(0xffffff));
+        finishRegisterButton.addElement(finishRegisterButtonText);
+
         //add to scenes array
-        scenes = new Scene[7];
+        scenes = new Scene[8];
         scenes[0] = landingScene;
         scenes[1] = loginScene;
         scenes[2] = mainMenuScene;
@@ -365,5 +419,6 @@ public class ViewController {
         scenes[4] = watchlistScene;
         scenes[5] = recommendationsScene;
         scenes[6] = mediaInfoScene;
+        scenes[7] = registerScene;
     }
 }

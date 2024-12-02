@@ -6,8 +6,8 @@ import com.nowshowing.UI.UIElements.ViewController;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        ViewController viewController = new ViewController();
-        viewController.loadScene(ViewController.LANDING_SCENE);
+        new ViewController();
+        ViewController.loadScene(ViewController.LANDING_SCENE);
 
     }
 
