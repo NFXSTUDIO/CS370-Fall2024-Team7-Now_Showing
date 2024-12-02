@@ -47,9 +47,13 @@ public class ViewController {
     final UIElement.PositioningMethod STRETCH = UIElement.PositioningMethod.STRETCH;
     final UIElement.PositioningMethod PERCENT = UIElement.PositioningMethod.PERCENT_FILL;
 
+    //watchlist saved here
+    static List<String> savedMedia;
+
     public ViewController(){
         createScenes();
         serverController = new ServerController(this);
+        savedMedia = new ArrayList<String>();
         // Possibly: use default User constructor that can identify itself as not logged in (ie id = -1)
     }
 
@@ -84,12 +88,13 @@ public class ViewController {
 
     public static void attemptLogIn(String username, String password){
         //insert method call to the services controller
-        //TODO: implement way to check for success
         ArrayList<String> result = serverController.loginRequest(username, password);
-        
-
-        //temporary function for debugging purposes:
-        displayLogInResult(true);
+        System.out.println("value 1: "+ result.get(0));
+        if(result.get(0).equals("u_e") && result.get(1).equals("u_pc")){
+            displayLogInResult(true);
+        }else if(result.get(0).equals("u_ne")){
+            displayLogInResult(false);
+        }
     }
 
     public static void attemptRegister(String username, String password){
@@ -100,21 +105,19 @@ public class ViewController {
     }
 
     public static void requestRecommendation(){
-        //TODO: insert method call to the services controller
+        Movie result = serverController.recommendationRequest(savedMedia);
+        displayMediaInfo(result);
 
         //temporary code for debugging purposes:
-        Movie m = new Movie();
+        /*Movie m = new Movie();
         m.setTitle("media 100 (movie)");
         m.setId(100);
         m.setDirector("director");
         m.setRuntime(1000);
-        displayMediaInfo(m);
+        displayMediaInfo(m);*/
     }
 
     public static void attemptLogout(){
-        //TODO: insert method call to the services controller
-
-        //temporary code for debugging purposes:
         displayLogOutResult();
     }
 
@@ -148,14 +151,6 @@ public class ViewController {
         MediaInfoText.setDisplayedMedia(media);
         loadScene(MEDIA_INFO_SCENE);
 
-    }
-
-    public void getRecommendation(){
-        List<String> titles = new ArrayList<String>();
-        // TODO: load movie titles into list
-
-        Movie result = serverController.recommendationRequest(titles);
-        // TODO: display results
     }
 
     public static void attemptViewMediaInfo(int mediaID){
