@@ -22,8 +22,8 @@ public class Recommendation {
         castMultiplier = 0.5;
         decadeMultiplier = 0.5;
         
-        for(int current : input){
-            userMovies.add(mh.findById(current));
+        for(String current : input){
+            userMovies.add(mh.findByTitleMatch(current));
         }
 
     }
