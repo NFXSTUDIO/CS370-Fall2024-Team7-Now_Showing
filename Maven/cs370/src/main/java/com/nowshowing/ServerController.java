@@ -56,5 +56,4 @@ public class ServerController {
         ArrayList<String> export = LogIn.sign_up(user,password);
         return export;
     }
-
 }
