@@ -19,12 +19,15 @@ public class ServerController {
         mediaHandler = new MediaHandler();
      }
      
+    public Movie singleMovieSearch(String input){
+        return mediaHandler.findByTitleMatch(input);
+    }
 
     public List<Movie> searchRequest(String input){
         return mediaHandler.findMultipleByTitle(input);
     }
 
-    public Movie recommendationRequest(List<String> input){
+    public Movie recommendationRequest(List<Integer> input){
         Recommendation rec = new Recommendation(input, mediaHandler);
         
         return rec.getRecommendation();
