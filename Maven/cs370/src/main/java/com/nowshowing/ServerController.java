@@ -53,7 +53,9 @@ public class ServerController {
     }
 
     public ArrayList<String> signupRequest(String user, String password){
-        ArrayList<String> export = LogIn.sign_up(user,password);
-        return export;
+         String fname = "test";
+         String lname = "test";
+         ArrayList<String> export = LogIn.sign_up(fname,lname,user,password);
+         return export;
     }
 }
