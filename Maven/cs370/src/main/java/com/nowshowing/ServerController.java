@@ -52,9 +52,10 @@ public class ServerController {
         return export;
     }
 
-    public ArrayList<String> signupRequest(String firstName,String lastName,String user, String password){
-        ArrayList<String> export = LogIn.sign_up(firstName,lastName,user,password);
-        return export;
+    public ArrayList<String> signupRequest(String user, String password){
+         String firstName = "test";
+         String lastName = "test";
+         ArrayList<String> export = LogIn.sign_up(firstName,lastName,user,password);
+         return export;
     }
-
 }
