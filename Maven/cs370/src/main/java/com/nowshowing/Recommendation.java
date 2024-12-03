@@ -13,7 +13,7 @@ public class Recommendation {
     double castMultiplier;
     double decadeMultiplier;
 
-    public Recommendation(List<String> input, MediaHandler mediaHandler) {
+    public Recommendation(List<Integer> input, MediaHandler mediaHandler) {
         mh = mediaHandler;
         userMovies = new ArrayList<Movie>();
 

@@ -21,7 +21,7 @@ public class AddToWatchlistButton extends UIButton{
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                ViewController.addToWatchlist(ListLabel.getDisplayedMedia().getId());
+                ViewController.addToWatchlist(ListLabel.getDisplayedMedia());
                 System.out.println("added to watchlist");
             }
         });

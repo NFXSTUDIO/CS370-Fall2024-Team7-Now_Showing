@@ -12,7 +12,11 @@ public class TVShow extends Media{
     public TVShow(){
 
     }
-    
+
+    public String getTitle(){
+        return getName();
+    }
+
     public String getCreator() {
         return creator;
     }

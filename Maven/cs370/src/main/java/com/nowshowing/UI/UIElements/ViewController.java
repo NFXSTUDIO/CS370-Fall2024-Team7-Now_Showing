@@ -48,12 +48,12 @@ public class ViewController {
     final UIElement.PositioningMethod PERCENT = UIElement.PositioningMethod.PERCENT_FILL;
 
     //watchlist saved here
-    static List<String> savedMedia;
+    static List<Integer> savedMedia;
 
     public ViewController(){
         createScenes();
         serverController = new ServerController(this);
-        savedMedia = new ArrayList<String>();
+        savedMedia = new ArrayList<Integer>();
         // Possibly: use default User constructor that can identify itself as not logged in (ie id = -1)
     }
 
@@ -154,7 +154,6 @@ public class ViewController {
     }
 
     public static void attemptViewMediaInfo(int mediaID){
-        //TODO: inset method call to the services controller
         Movie m = serverController.getDetails(mediaID);
 
         //temporary lines for debugging purposes:
@@ -179,8 +178,8 @@ public class ViewController {
         //serverController.removeFromWL(title, currentUser.getid()); // Replace with any way to identify user
     }
 
-    public static void addToWatchlist(int id){
-        //serverController.addToWL(id, currentUser.getId()); // Replace with any way to identify user
+    public static void addToWatchlist(Media m){
+        savedMedia.add(m.getId());
     }
 
     //this method creates each scene

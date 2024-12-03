@@ -49,7 +49,7 @@ public class ListLabel extends UILabel{
 
     //don't refresh if no search results yet
     public void refresh(JComponent parent){
-        if(mediaList != null){
+        if(mediaList != null && mediaList.size() > 0){
             displayTitleText.setText(mediaList.get(position).getTitle());
             super.refresh(parent);
         }
