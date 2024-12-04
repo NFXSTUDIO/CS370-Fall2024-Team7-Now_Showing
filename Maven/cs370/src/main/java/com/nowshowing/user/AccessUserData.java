@@ -16,7 +16,7 @@ import static java.lang.StringTemplate.STR;
 
 interface AccessUserData {
 
-    public static final String MONGO_URI = "mongodb+srv://arthurcourbevoie:O1prb3AJv81fXZe@usernowshowing.8tofy.mongodb.net/?retryWrites=true&w=majority&appName=UserNowShowing";
+    public static final String MONGO_URI = "mongodb+srv://arthurcourbevoie:90oBVtWbT3weWqea@usernowshowing.8tofy.mongodb.net/?retryWrites=true&w=majority&appName=UserNowShowing";
 
     private static Boolean AddUser(String fname, String lname, String username, String password){
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
