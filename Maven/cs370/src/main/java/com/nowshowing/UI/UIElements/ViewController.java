@@ -48,12 +48,12 @@ public class ViewController {
     final UIElement.PositioningMethod PERCENT = UIElement.PositioningMethod.PERCENT_FILL;
 
     //watchlist saved here
-    static List<Integer> savedMedia;
+    static List<String> savedMedia;
 
     public ViewController(){
         createScenes();
         serverController = new ServerController(this);
-        savedMedia = new ArrayList<Integer>();
+        savedMedia = new ArrayList<String>();
         // Possibly: use default User constructor that can identify itself as not logged in (ie id = -1)
     }
 
@@ -179,7 +179,7 @@ public class ViewController {
     }
 
     public static void addToWatchlist(Media m){
-        savedMedia.add(m.getId());
+        savedMedia.add(m.getTitle());
     }
 
     //this method creates each scene
