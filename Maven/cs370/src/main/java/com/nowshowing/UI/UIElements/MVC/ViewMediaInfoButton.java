@@ -13,7 +13,7 @@ public class ViewMediaInfoButton extends UIButton {
         super(x, y, width, height, xBehavior, yBehavior, color);
     }
 
-    JComponent createComponent(){
+    public JComponent createComponent(){
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
             @Override

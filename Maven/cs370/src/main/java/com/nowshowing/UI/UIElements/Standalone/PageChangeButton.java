@@ -21,7 +21,7 @@ public class PageChangeButton extends UIButton {
         this.listLabel = listLabel;
     }
 
-    JComponent createComponent() {
+    public JComponent createComponent() {
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
             @Override
