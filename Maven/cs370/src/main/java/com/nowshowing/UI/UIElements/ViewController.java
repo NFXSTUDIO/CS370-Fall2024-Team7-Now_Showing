@@ -154,7 +154,6 @@ public class ViewController {
     }
 
     public static void attemptViewMediaInfo(int mediaID){
-        //TODO: inset method call to the services controller
         Movie m = serverController.getDetails(mediaID);
 
         //temporary lines for debugging purposes:
@@ -179,8 +178,8 @@ public class ViewController {
         //serverController.removeFromWL(title, currentUser.getid()); // Replace with any way to identify user
     }
 
-    public static void addToWatchlist(int id){
-        //serverController.addToWL(id, currentUser.getId()); // Replace with any way to identify user
+    public static void addToWatchlist(Media m){
+        savedMedia.add(m.getTitle());
     }
 
     //this method creates each scene

@@ -27,7 +27,7 @@ public class ServerController {
         return mediaHandler.findMultipleByTitle(input);
     }
 
-    public Movie recommendationRequest(List<Integer> input){
+    public Movie recommendationRequest(List<String> input){
         Recommendation rec = new Recommendation(input, mediaHandler);
         
         return rec.getRecommendation();

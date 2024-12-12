@@ -8,14 +8,8 @@ public abstract class Media {
     String overview;
     String poster_path;
     List<String> cast;
-    String title;
 
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public abstract String getTitle();
     public int[] getGenre_ids() {
         return genre_ids;
     }

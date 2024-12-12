@@ -31,9 +31,10 @@ public class MediaInfoText extends UIElement{
     String getText(){
         Movie movie = (Movie)displayedMedia;
         String text = movie.getTitle();
-        text += "\n" + movie.getDirector();
-        text += "\n" + movie.getRuntime();
-        text += "\n" + movie.getCast();
+        text += "\nDirector: " + movie.getDirector();
+        text += "\nReleased: " + movie.getRelease_date();
+        text += "\nCast: " + movie.getCast();
+        text += "\nOverview:\n" + movie.getOverview();
 
         return text;
     }

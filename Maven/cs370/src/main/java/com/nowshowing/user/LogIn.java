@@ -38,7 +38,7 @@ public class LogIn {
 
         data = UserHandler.add_data_to_database(STR."u,a,\{firstName},\{lastName},\{username},\{password}");
 
-        if(Objects.equals(data.get(1), "good")){
+        if(Objects.equals(data.get(0), "good")){
             export.add("u_a");
         }
         else{
