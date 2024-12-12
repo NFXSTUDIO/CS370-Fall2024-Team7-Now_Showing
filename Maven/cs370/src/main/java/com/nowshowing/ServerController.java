@@ -34,11 +34,11 @@ public class ServerController {
     }
     
     public void removeFromWL(String username, String mediaID){
-        UserHandler.add_data_to_database(STR."w,u,\{username},\{mediaID}");
+        UserHandler.add_data_to_database("w,u," + username + "," + mediaID);
     }
 
     public void addToWL(String mediaID){
-        UserHandler.add_data_to_database(STR."w,a,username,\{mediaID}");
+        UserHandler.add_data_to_database("w,a,username," + mediaID);
     }
    
     public Movie getDetails(int id){
@@ -46,7 +46,7 @@ public class ServerController {
     }
     
     public ArrayList<String> getWatchlist(String username){
-        ArrayList<String> export = UserHandler.add_data_to_database(STR."w,d,\{username}");
+        ArrayList<String> export = UserHandler.add_data_to_database("w,d," + username);
         return export;
     }
 
