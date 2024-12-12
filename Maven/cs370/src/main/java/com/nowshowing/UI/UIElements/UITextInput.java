@@ -27,7 +27,7 @@ public class UITextInput extends UIElement{
         this(0,0,0,0,PositioningMethod.STRETCH,PositioningMethod.STRETCH, color);
     }
 
-    JComponent createComponent(){
+    public JComponent createComponent(){
         JTextField field = new JTextField(text);
         //text positioning
         field.setHorizontalAlignment(SwingConstants.LEFT);

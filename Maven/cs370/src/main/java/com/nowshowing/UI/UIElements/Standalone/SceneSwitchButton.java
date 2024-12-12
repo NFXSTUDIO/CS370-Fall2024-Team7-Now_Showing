@@ -17,11 +17,12 @@ public class SceneSwitchButton extends UIButton {
         this.sceneToLoad = sceneToOpen;
     }
 
-    JComponent createComponent(){
+    public JComponent createComponent(){
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
+                System.out.println("clicked");
                 if(!ViewController.returnToPreviousScene())
                     ViewController.loadScene(sceneToLoad);
             }

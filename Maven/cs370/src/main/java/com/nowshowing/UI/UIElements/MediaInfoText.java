@@ -20,7 +20,7 @@ public class MediaInfoText extends UIElement{
         MediaInfoText.displayedMedia = displayedMedia;
     }
 
-    JComponent createComponent(){
+    public JComponent createComponent(){
         JTextArea label = new JTextArea();
         label.setText(getText());
         //label.setHorizontalAlignment(SwingConstants.CENTER);

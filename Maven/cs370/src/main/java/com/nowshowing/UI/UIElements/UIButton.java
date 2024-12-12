@@ -16,7 +16,7 @@ public class UIButton extends UIElement{
         super(x, y, width, height);
     }
 
-    JComponent createComponent(){
+    public JComponent createComponent(){
         return new JButton();
     }
 

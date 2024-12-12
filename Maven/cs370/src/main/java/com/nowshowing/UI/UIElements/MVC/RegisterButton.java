@@ -22,7 +22,7 @@ public class RegisterButton extends UIButton {
         this.passwordInput = passwordInput;
     }
 
-    JComponent createComponent() {
+    public JComponent createComponent() {
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
             @Override
