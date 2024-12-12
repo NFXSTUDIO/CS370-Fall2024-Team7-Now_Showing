@@ -45,7 +45,7 @@ public abstract class UIElement {
         parent.add(component);
     }
 
-    void addElement(UIElement element){
+    public void addElement(UIElement element){
         children.add(element);
     }
 

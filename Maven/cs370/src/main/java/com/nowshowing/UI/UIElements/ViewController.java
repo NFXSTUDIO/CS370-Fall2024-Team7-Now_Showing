@@ -1,8 +1,12 @@
 package com.nowshowing.UI.UIElements;
 
+import com.nowshowing.UI.UIElements.MVC.*;
+import com.nowshowing.UI.UIElements.Standalone.AddToWatchlistButton;
+import com.nowshowing.UI.UIElements.Standalone.LogoutButton;
+import com.nowshowing.UI.UIElements.Standalone.PageChangeButton;
+import com.nowshowing.UI.UIElements.Standalone.SceneSwitchButton;
 import com.nowshowing.wrappers.Media;
 import com.nowshowing.wrappers.Movie;
-import com.nowshowing.wrappers.TVShow;
 
 import java.awt.*;
 import com.nowshowing.user.*;
