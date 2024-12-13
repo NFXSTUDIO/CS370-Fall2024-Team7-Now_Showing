@@ -8,4 +8,4 @@ MIT Licenses
 To open run this command on your terminal : 
 java --enable-preview -jar cs370.jar
 
-WARNING : You need to install Java 22 it didn't work with an other version
+WARNING : You need to install Java 22, it didn't work with an other version
