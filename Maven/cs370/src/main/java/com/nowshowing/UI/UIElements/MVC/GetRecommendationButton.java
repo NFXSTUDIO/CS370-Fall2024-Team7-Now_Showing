@@ -1,4 +1,7 @@
-package com.nowshowing.UI.UIElements;
+package com.nowshowing.UI.UIElements.MVC;
+
+import com.nowshowing.UI.UIElements.UIButton;
+import com.nowshowing.UI.UIElements.ViewController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +14,7 @@ public class GetRecommendationButton extends UIButton {
         super(x, y, width, height, xBehavior, yBehavior, color);
     }
 
-    JComponent createComponent() {
+    public JComponent createComponent() {
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
             @Override

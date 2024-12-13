@@ -31,7 +31,7 @@ public class UIText extends UIElement{
         this.text = text;
     }
 
-    JComponent createComponent(){
+    public JComponent createComponent(){
         JLabel label = new JLabel();
         label.setText(text);
         label.setHorizontalAlignment(SwingConstants.CENTER);

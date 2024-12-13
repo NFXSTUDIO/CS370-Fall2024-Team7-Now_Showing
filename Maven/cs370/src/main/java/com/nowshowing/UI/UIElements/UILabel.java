@@ -16,7 +16,7 @@ public class UILabel extends UIElement{
         super(x, y, width, height);
     }
 
-    JComponent createComponent(){
+    public JComponent createComponent(){
         return new JLabel();
     }
 

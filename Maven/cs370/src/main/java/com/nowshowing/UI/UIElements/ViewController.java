@@ -1,8 +1,12 @@
 package com.nowshowing.UI.UIElements;
 
+import com.nowshowing.UI.UIElements.MVC.*;
+import com.nowshowing.UI.UIElements.Standalone.AddToWatchlistButton;
+import com.nowshowing.UI.UIElements.Standalone.LogoutButton;
+import com.nowshowing.UI.UIElements.Standalone.PageChangeButton;
+import com.nowshowing.UI.UIElements.Standalone.SceneSwitchButton;
 import com.nowshowing.wrappers.Media;
 import com.nowshowing.wrappers.Movie;
-import com.nowshowing.wrappers.TVShow;
 
 import java.awt.*;
 import com.nowshowing.user.*;
@@ -48,12 +52,12 @@ public class ViewController {
     final UIElement.PositioningMethod PERCENT = UIElement.PositioningMethod.PERCENT_FILL;
 
     //watchlist saved here
-    static List<String> savedMedia;
+    static List<Media> savedMedia;
 
     public ViewController(){
         createScenes();
         serverController = new ServerController(this);
-        savedMedia = new ArrayList<String>();
+        savedMedia = new ArrayList<Media>();
         // Possibly: use default User constructor that can identify itself as not logged in (ie id = -1)
     }
 
@@ -105,7 +109,11 @@ public class ViewController {
     }
 
     public static void requestRecommendation(){
-        Movie result = serverController.recommendationRequest(savedMedia);
+        ArrayList<String> mediaTitles = new ArrayList<String>();
+        for(Media m : savedMedia){
+            mediaTitles.add(m.getTitle());
+        }
+        Movie result = serverController.recommendationRequest(mediaTitles);
         displayMediaInfo(result);
 
         //temporary code for debugging purposes:
@@ -143,7 +151,12 @@ public class ViewController {
     }
 
     public static void displaySearchResults(ArrayList<Media> searchResults){
-        ListLabel.setSearchResults(searchResults);
+        ListLabel.setDisplayList(searchResults);
+    }
+
+    public static void displayWatchlist(){
+        ListLabel.setDisplayList((ArrayList)savedMedia);
+        loadScene(WATCHLIST_SCENE);
     }
 
     public static void displayMediaInfo(Media media){
@@ -179,7 +192,7 @@ public class ViewController {
     }
 
     public static void addToWatchlist(Media m){
-        savedMedia.add(m.getTitle());
+        savedMedia.add(m);
     }
 
     //this method creates each scene
@@ -246,7 +259,7 @@ public class ViewController {
         UIElement searchMediaButtonText = new UIText("Search Media", new Color(0xffffff));
         searchMediaButton.addElement(searchMediaButtonText);
         //view watchlist button
-        UIElement viewWatchlistButton = new SceneSwitchButton(0.525f,0.05f,0.05f,0.525f, PERCENT, PERCENT, new Color(0x811A0A), WATCHLIST_SCENE);
+        UIElement viewWatchlistButton = new ViewWatchlistButton(0.525f,0.05f,0.05f,0.525f, PERCENT, PERCENT, new Color(0x811A0A));
         mainMenuBackdrop.addElement(viewWatchlistButton);
         UIElement viewWatchlistButtonText = new UIText("View Watchlist", new Color(0xffffff));
         viewWatchlistButton.addElement(viewWatchlistButtonText);
@@ -323,6 +336,35 @@ public class ViewController {
         watchlistScene.addElement(watchlistHeader);
         UIElement watchlistHeaderText = new UIText("Your Watchlist", new Color(0xffffff));
         watchlistHeader.addElement(watchlistHeaderText);
+        //watchlist item
+        ListLabel watchlistItem = new ListLabel(0.1f, 250, 0.1f, 100, PERCENT, STRETCH);
+        watchlistScene.addElement(watchlistItem);
+        UIText watchlistItemTitle = new UIText(10,10,10,50, STRETCH, MIN, new Color(0xffffff), "Media Title");
+        watchlistItem.addElement(watchlistItemTitle);
+        watchlistItem.setDependantObjects(watchlistItemTitle);
+        //remove from watchlist button; unfinished
+        /*AddToWatchlistButton addToWatchlistFromSearchButton = new AddToWatchlistButton(0.05f, 75, 0.525f, 30, PERCENT, STRETCH, new Color(0x811A0A));
+        addToWatchlistFromSearchButton.setListLabel(watchlistItem);
+        watchlistItem.addElement(addToWatchlistFromSearchButton);
+        UIText addToWatchlistFromSearchText = new UIText("Add to Watchlist", new Color(0xffffff));
+        addToWatchlistFromSearchButton.addElement(addToWatchlistFromSearchText);*/
+        //view media info button
+        UIButton viewMediaInfoFromWatchlistButton = new ViewMediaInfoButton(0.25f, 75, 0.25f, 30, PERCENT, STRETCH, new Color(0x811A0A));
+        watchlistItem.addElement(viewMediaInfoFromWatchlistButton);
+        UIText viewMediaInfoFromWatchlistText = new UIText("View Media Info", new Color(0xffffff));
+        viewMediaInfoFromWatchlistButton.addElement(viewMediaInfoFromWatchlistText);
+        //previous page button
+        PageChangeButton previousItemButton = new PageChangeButton(-180, -10, 350, 75, CENTER, MAX, new Color(0x811A0A),-1);
+        previousItemButton.setListLabel(watchlistItem);
+        watchlistScene.addElement(previousItemButton);
+        UIElement previousItemButtonText = new UIText("Previous", new Color(0xffffff));
+        previousItemButton.addElement(previousItemButtonText);
+        //next page button
+        PageChangeButton nextItemButton = new PageChangeButton(180, -10, 350, 75, CENTER, MAX, new Color(0x811A0A),1);
+        nextItemButton.setListLabel(watchlistItem);
+        watchlistScene.addElement(nextItemButton);
+        UIElement nextItemButtonText = new UIText("Next", new Color(0xffffff));
+        nextItemButton.addElement(nextItemButtonText);
         //exit button
         UIElement exitWatchlistButton = new SceneSwitchButton(10, -10, 100, 50, MIN, MAX, new Color(0x811A0A), MAIN_MENU_SCENE);
         watchlistScene.addElement(exitWatchlistButton);

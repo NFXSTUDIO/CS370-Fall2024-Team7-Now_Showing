@@ -1,4 +1,8 @@
-package com.nowshowing.UI.UIElements;
+package com.nowshowing.UI.UIElements.MVC;
+
+import com.nowshowing.UI.UIElements.UIButton;
+import com.nowshowing.UI.UIElements.UITextInput;
+import com.nowshowing.UI.UIElements.ViewController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +22,7 @@ public class RegisterButton extends UIButton {
         this.passwordInput = passwordInput;
     }
 
-    JComponent createComponent() {
+    public JComponent createComponent() {
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
             @Override

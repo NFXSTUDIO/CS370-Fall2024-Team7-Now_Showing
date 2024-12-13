@@ -45,7 +45,7 @@ public abstract class UIElement {
         parent.add(component);
     }
 
-    void addElement(UIElement element){
+    public void addElement(UIElement element){
         children.add(element);
     }
 
@@ -86,7 +86,7 @@ public abstract class UIElement {
 
     //should be overridden by subclass depending on what swing component it represents
     //default: JLabel
-    abstract JComponent createComponent();
+    public abstract JComponent createComponent();
 
     void setColor(JComponent component){
         component.setBackground(color);
