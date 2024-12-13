@@ -154,8 +154,8 @@ interface AccessUserData {
         try (MongoClient mongoClient = (MongoClient) MongoClients.create(MONGO_URI)) {
             MongoDatabase database = mongoClient.getDatabase("User");
             MongoCollection<Document> collection = database.getCollection("UserData");
-            FindIterable<Document> Documents = collection.find();
-            for (Document doc : Documents) {
+            FindIterable<Document> documents = collection.find();
+            for (Document doc : documents) {
                 String fname = doc.getString("username");
                 data.add(fname);
             }
@@ -362,7 +362,7 @@ interface AccessUserData {
         // If he found the same username twice, he send exist become true else exist still be false
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-        boolean exist = false;
+        Boolean exist = false;
         ArrayList<String> users_data = getUsernames();
 
         for (String usersDatum : users_data) {
