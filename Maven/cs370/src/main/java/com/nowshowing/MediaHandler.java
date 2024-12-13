@@ -66,4 +66,24 @@ public class MediaHandler {
         Document result = collection.find(Filters.eq("title", title)).first();
         return gson.fromJson(result.toJson(), Movie.class);
     }
+
+    public List<Movie> findMultipleByGenre(int input){
+
+        try{
+            List<Movie> results = new ArrayList<Movie>();
+            cursor = collection.find({genre_ids: input}).iterator();
+
+
+            while (cursor.hasNext()){
+                results.add(gson.fromJson(cursor.next().toJson(), Movie.class));
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
+        
+        return results;
+    }
+
 }

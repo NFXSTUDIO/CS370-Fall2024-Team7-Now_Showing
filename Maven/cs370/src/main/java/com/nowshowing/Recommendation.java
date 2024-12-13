@@ -29,8 +29,8 @@ public class Recommendation {
     }
 
     public Movie getRecommendation(){
-        List<Integer> resultIds = new ArrayList<Integer>();
-        List<Integer> resultScores = new ArrayList<Integer>();
+        List<Movie> results = new ArrayList<Movie>();
+        List<Double> resultScores = new ArrayList<Double>();
 
         List<Integer> genreIdList = new ArrayList<Integer>();
         List<String> directorList = new ArrayList<String>();
@@ -38,7 +38,8 @@ public class Recommendation {
         List<String> decadeList = new ArrayList<String>();
         String decade;
 
-        for (Movie m : userMovies){
+        try{
+            for (Movie m : userMovies){
             for(int currId : m.getGenre_ids()){
                 if(!genreIdList.contains(currId)){
                     genreIdList.add(currId);
@@ -60,11 +61,48 @@ public class Recommendation {
                 decadeList.add(decade);
             }
             
+            }
+
+            for(int id : genreIdList){
+                List<Movie> genreMatches = mh.findMultipleByGenre(id);
+                for(Movie match : genreMatches){
+                    if(!results.contains(match)){
+                        results.add(match);
+                        resultScores.add(genreMultiplier);
+                    }
+                }
+            }
+
+            for(int i = 0; i < results.size(); i++){
+                Movie current = results(i);
+                if(directorList.contains(current.getDirector())){
+                    resultScores.get(i) = resultScores.get(i) + directorMultiplier;
+                }
+                for(String currCastMember : current.getCast()){
+                    if(castList.contains(currCastMember)){
+                        resultScores.get(i) = resultScores.get(i) + castMultiplier;
+                    }
+                }
+                decade = current.getRelease_date().substring(0, 3);
+                if(decadeList.contains(decade)){
+                    resultScores.get(i) = resultScores.get(i) + decadeMultiplier;
+                }
+            }
+
+            int max = 0;
+            double highScore = 0; 
+
+            for(int i = 0; i < resultScores.size(); i++){
+                if(resultScores.get(i) > highScore){
+                    max = i;
+                }
+            }
+
+            return results.get(max);
+        } catch (Exception e){
+            return mh.findById(238);
         }
-
-        
-
-        return mh.findById(238);
+ 
     }
     
 }
