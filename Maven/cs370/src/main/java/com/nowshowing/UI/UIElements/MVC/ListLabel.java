@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class ListLabel extends UILabel {
     static ArrayList<Media> mediaList;
     static int position;
-    static UIText displayTitleText;
+    UIText displayTitleText;
 
     public ListLabel(float x, float y, float width, float height, PositioningMethod xBehavior, PositioningMethod yBehavior){
         super(x, y, width, height, xBehavior, yBehavior);
@@ -23,7 +23,7 @@ public class ListLabel extends UILabel {
     }
 
     public void setDependantObjects(UIText displayTitleText){
-        ListLabel.displayTitleText = displayTitleText;
+        this.displayTitleText = displayTitleText;
     }
 
     //use positive for next page, negative for previous page
@@ -37,7 +37,7 @@ public class ListLabel extends UILabel {
     }
 
     //for setting the search results
-    public static void setSearchResults(ArrayList<Media> media){
+    public static void setDisplayList(ArrayList<Media> media){
         mediaList = media;
         ViewController.refreshActiveScene();
     }
@@ -50,7 +50,13 @@ public class ListLabel extends UILabel {
 
     //don't refresh if no search results yet
     public void refresh(JComponent parent){
-        if(mediaList != null && mediaList.size() > 0){
+        //ensure position is in bounds
+        if(position >= mediaList.size())
+            position = mediaList.size() - 1;
+        if(position < 0)
+            position = 0;
+        //show title and refresh if there is something to show
+        if(!mediaList.isEmpty()){
             displayTitleText.setText(mediaList.get(position).getTitle());
             super.refresh(parent);
         }

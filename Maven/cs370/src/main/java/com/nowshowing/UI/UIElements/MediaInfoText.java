@@ -23,8 +23,9 @@ public class MediaInfoText extends UIElement{
     public JComponent createComponent(){
         JTextArea label = new JTextArea();
         label.setText(getText());
-        //label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setFont(new Font("Lora", Font.PLAIN, 40));
+        label.setLineWrap(true);
+        label.setWrapStyleWord(true);
+        label.setFont(new Font("Lora", Font.PLAIN, 30));
         return label;
     }
 

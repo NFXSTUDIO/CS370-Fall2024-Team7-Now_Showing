@@ -1,17 +1,16 @@
 package com.nowshowing.user;
+import static com.mongodb.client.model.Filters.eq;
 
-import com.mongodb.MongoClient;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+import com.mongodb.client.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoClients;
-import org.bson.Document;
-import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-
 
 interface AccessUserData {
 
@@ -43,7 +42,7 @@ interface AccessUserData {
             System.out.println("Inserted into user data !");                                // Console out to confirm the action done
             return false;
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());                            // If error, error message
+            System.err.println(STR."Error : \{e.getMessage()}");                            // If error, error message
             return true;
         }
     }
@@ -65,15 +64,17 @@ interface AccessUserData {
                 String lname = doc.getString("last name");
                 String username = doc.getString("username");
                 String password = doc.getString("password");
-                System.out.println("-------------------------------" +
-                                    "\nFirst name: " + fname +
-                                    "\nLast name: " + lname +
-                                    "\nUsername: " + username +
-                                    "\nPassword: " + password +
-                                    "-------------------------------");
+                System.out.println(STR."""
+-------------------------------
+First name: \{fname}
+Last name: \{lname}
+Username: \{username}
+Password: \{password}
+-------------------------------
+""");
             }
         } catch (Exception e) {                                                             // If error, error message
-            System.err.println("Error : " + e.getMessage());
+            System.err.println(STR."Error : \{e.getMessage()}");
         }
     }
 
@@ -98,10 +99,10 @@ interface AccessUserData {
             if (result != null) {                                                           // If he finds someone, he returns the ID else, he says don't find the user
                 id = result.getObjectId("_id");
             } else {
-                System.out.println("Couldn't find " + username);
+                System.out.println(STR."Don't find \{username}");
             }
         } catch (Exception e) {                                                             // If error, error message
-            System.err.println("Error : " + e.getMessage());
+            System.err.println(STR."Error : \{e.getMessage()}");
         }
         return id;
     }
@@ -134,7 +135,7 @@ interface AccessUserData {
                 data.add(password);
             }
         } catch (Exception e) {                                                             // If error, error message
-            System.err.println("Error : " + e.getMessage());
+            System.err.println(STR."Error : \{e.getMessage()}");
             data.add("error");
         }
         return data;
@@ -160,7 +161,7 @@ interface AccessUserData {
                 data.add(fname);
             }
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            System.err.println(STR."Error : \{e.getMessage()}");
         }
         return data;
     }
@@ -188,7 +189,7 @@ interface AccessUserData {
                 password = result.getString("password");
             }
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            System.err.println(STR."Error : \{e.getMessage()}");
         }
         return password;
     }
@@ -213,11 +214,11 @@ interface AccessUserData {
                 collection.deleteOne(result);
                 System.out.println("User deleted");
             } else {
-                System.out.println("Couldn't find " + username);
+                System.out.println(STR."Don't find \{username}");
             }
             return false;
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            System.err.println(STR."Error : \{e.getMessage()}");
             return true;
         }
     }
@@ -261,7 +262,7 @@ interface AccessUserData {
             }
             return false;
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            System.err.println(STR."Une erreur s'est produite : \{e.getMessage()}");
             return true;
         }
     }
@@ -290,7 +291,7 @@ interface AccessUserData {
                 exported_data.addAll(result.get("watchlist",exported_data));
             }
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            System.err.println(STR."Error : \{e.getMessage()}");
             exported_data.add("error");
         }
         return exported_data;
@@ -321,7 +322,7 @@ interface AccessUserData {
             }
             return false;
         } catch (Exception e) {
-            System.err.println("Error : " + e.getMessage());
+            System.err.println(STR."Une erreur s'est produite : \{e.getMessage()}");
             return true;
         }
     }
@@ -364,7 +365,7 @@ interface AccessUserData {
 
         Boolean exist = false;
         ArrayList<String> users_data = getUsernames();
-
+        System.out.println(users_data);
         for (String usersDatum : users_data) {
             if (usersDatum.equals(username)) {
                 exist = true;
@@ -372,11 +373,11 @@ interface AccessUserData {
                 break;
             }
         }
-        System.out.println("User " + username + " does not exist");
+        System.out.println(STR."User \{username} does not exist");
         return exist;
     }
 
-    static boolean password_verification(String password, String username){
+    static boolean password_verification(String username,String password){
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
         // password verification method
         // Input :
@@ -388,7 +389,6 @@ interface AccessUserData {
         // The code use getUsernamePassword method to have the password
         // If the password enter and inside the database is the same he return true else he return false
         // ---------------------------------------------------------------------------------------------------------------------------------------------------------
-
         if(Objects.equals(getUserPassword(username), password)){
             System.out.println("Password correct");
             return true;
