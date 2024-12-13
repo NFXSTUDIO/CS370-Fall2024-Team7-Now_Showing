@@ -74,18 +74,18 @@ public class Recommendation {
             }
 
             for(int i = 0; i < results.size(); i++){
-                Movie current = results(i);
+                Movie current = results.get(i);
                 if(directorList.contains(current.getDirector())){
-                    resultScores.get(i) = resultScores.get(i) + directorMultiplier;
+                    resultScores.set(i, (resultScores.get(i) + directorMultiplier));
                 }
                 for(String currCastMember : current.getCast()){
                     if(castList.contains(currCastMember)){
-                        resultScores.get(i) = resultScores.get(i) + castMultiplier;
+                        resultScores.set(i, (resultScores.get(i) + castMultiplier));
                     }
                 }
                 decade = current.getRelease_date().substring(0, 3);
                 if(decadeList.contains(decade)){
-                    resultScores.get(i) = resultScores.get(i) + decadeMultiplier;
+                    resultScores.set(i, (resultScores.get(i) + decadeMultiplier));
                 }
             }
 

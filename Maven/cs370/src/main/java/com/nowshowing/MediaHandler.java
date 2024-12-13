@@ -1,5 +1,7 @@
 package com.nowshowing;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,10 +70,10 @@ public class MediaHandler {
     }
 
     public List<Movie> findMultipleByGenre(int input){
-
+        List<Movie> results = new ArrayList<Movie>();
         try{
-            List<Movie> results = new ArrayList<Movie>();
-            cursor = collection.find({genre_ids: input}).iterator();
+            
+            cursor = collection.find(eq("genre_ids", input)).iterator();
 
 
             while (cursor.hasNext()){

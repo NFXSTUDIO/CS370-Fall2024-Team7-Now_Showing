@@ -42,7 +42,7 @@ interface AccessUserData {
             System.out.println("Inserted into user data !");                                // Console out to confirm the action done
             return false;
         } catch (Exception e) {
-            System.err.println(STR."Error : \{e.getMessage()}");                            // If error, error message
+            System.err.println("Error : " + e.getMessage());                            // If error, error message
             return true;
         }
     }
@@ -64,17 +64,17 @@ interface AccessUserData {
                 String lname = doc.getString("last name");
                 String username = doc.getString("username");
                 String password = doc.getString("password");
-                System.out.println(STR."""
--------------------------------
-First name: \{fname}
-Last name: \{lname}
-Username: \{username}
-Password: \{password}
--------------------------------
-""");
-            }
+                System.out.println(
+                    "-------------------------------" + 
+                    "\nFirst name: " + fname + 
+                    "\nLast name: " + lname + 
+                    "\nUsername: " + username + 
+                    "\nPassword: " + password + 
+                    "\n-------------------------------"
+                    );
+        }
         } catch (Exception e) {                                                             // If error, error message
-            System.err.println(STR."Error : \{e.getMessage()}");
+            System.err.println("Error : " + e.getMessage()); 
         }
     }
 
@@ -99,10 +99,10 @@ Password: \{password}
             if (result != null) {                                                           // If he finds someone, he returns the ID else, he says don't find the user
                 id = result.getObjectId("_id");
             } else {
-                System.out.println(STR."Don't find \{username}");
+                System.out.println("Couldn't find " + username);
             }
         } catch (Exception e) {                                                             // If error, error message
-            System.err.println(STR."Error : \{e.getMessage()}");
+            System.err.println("Error : " + e.getMessage()); 
         }
         return id;
     }
@@ -135,7 +135,7 @@ Password: \{password}
                 data.add(password);
             }
         } catch (Exception e) {                                                             // If error, error message
-            System.err.println(STR."Error : \{e.getMessage()}");
+            System.err.println("Error : " + e.getMessage()); 
             data.add("error");
         }
         return data;
@@ -161,7 +161,7 @@ Password: \{password}
                 data.add(fname);
             }
         } catch (Exception e) {
-            System.err.println(STR."Error : \{e.getMessage()}");
+            System.err.println("Error : " + e.getMessage()); 
         }
         return data;
     }
@@ -189,7 +189,7 @@ Password: \{password}
                 password = result.getString("password");
             }
         } catch (Exception e) {
-            System.err.println(STR."Error : \{e.getMessage()}");
+            System.err.println("Error : " + e.getMessage()); 
         }
         return password;
     }
@@ -214,11 +214,11 @@ Password: \{password}
                 collection.deleteOne(result);
                 System.out.println("User deleted");
             } else {
-                System.out.println(STR."Don't find \{username}");
+                System.out.println("Couldn't find " + username);
             }
             return false;
         } catch (Exception e) {
-            System.err.println(STR."Error : \{e.getMessage()}");
+            System.err.println("Error : " + e.getMessage()); 
             return true;
         }
     }
@@ -262,7 +262,7 @@ Password: \{password}
             }
             return false;
         } catch (Exception e) {
-            System.err.println(STR."Une erreur s'est produite : \{e.getMessage()}");
+            System.err.println("Error : " + e.getMessage()); 
             return true;
         }
     }
@@ -291,7 +291,7 @@ Password: \{password}
                 exported_data.addAll(result.get("watchlist",exported_data));
             }
         } catch (Exception e) {
-            System.err.println(STR."Error : \{e.getMessage()}");
+            System.err.println("Error : " + e.getMessage()); 
             exported_data.add("error");
         }
         return exported_data;
@@ -322,7 +322,7 @@ Password: \{password}
             }
             return false;
         } catch (Exception e) {
-            System.err.println(STR."Une erreur s'est produite : \{e.getMessage()}");
+            System.err.println("Error : " + e.getMessage()); 
             return true;
         }
     }
@@ -373,7 +373,7 @@ Password: \{password}
                 break;
             }
         }
-        System.out.println(STR."User \{username} does not exist");
+        System.out.println("User " + username + " does not exist");
         return exist;
     }
 
