@@ -7,7 +7,6 @@ public class LogIn {
     public static ArrayList<String> log_in(String username, String password){
         ArrayList<String> export = new ArrayList<>();
         ArrayList<String> data = UserHandler.add_data_to_database("u,uv," + username);
-
         if(Objects.equals(data.get(1), "exist")){
             export.add("u_e");
             data = UserHandler.add_data_to_database("u,pv," + username + "," + password);
