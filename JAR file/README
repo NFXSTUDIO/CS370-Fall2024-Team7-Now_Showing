@@ -1,0 +1,9 @@
+----------------------------------------------------------------
+CS-435 Project - Now Showing
+Created by Evan Babin, Gavin Morris and Arthur Touati
+Supervised and help by Alan Saporta
+MIT Licenses
+---------------------------------------------------------------
+
+To open run this command on your terminal : 
+java --enable-preview -jar cs370.jar
